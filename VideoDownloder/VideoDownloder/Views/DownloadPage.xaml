@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="VideoDownloder.Views.DownloadPage">
+    <ContentPage.Content>
+        
+        <StackLayout>
+            <Editor x:Name="txt_url" Margin="10,30" HorizontalOptions="FillAndExpand" HeightRequest="50" Placeholder="PlaceDownloadUrl">
+            </Editor>
+            <Button Margin="10" Text="Download" Clicked="Button_Clicked"></Button>
+            <Label x:Name="prg" Text="DownLoad Progress"
+                VerticalOptions="CenterAndExpand" 
+                HorizontalOptions="CenterAndExpand" />
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>

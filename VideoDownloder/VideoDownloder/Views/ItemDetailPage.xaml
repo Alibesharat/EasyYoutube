@@ -1,0 +1,42 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="VideoDownloder.Views.ItemDetailPage"
+             Title="{Binding Title}">
+
+    <StackLayout Padding="6" >
+        <Frame BackgroundColor="FloralWhite">
+            <StackLayout>
+                <Label TextColor="Black"  Text="{Binding Item.Title}" 
+                                LineBreakMode="TailTruncation" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" FontAttributes="Bold" />
+                <Label TextColor="Black" Margin="5" Text="{Binding Item.Description}" 
+                                LineBreakMode="TailTruncation" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16"  />
+                <Label TextColor="Black" Margin="5" Text="{Binding Item.Duration}" 
+                                LineBreakMode="TailTruncation" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16"  />
+             
+            </StackLayout>
+
+        </Frame>
+        <StackLayout  Orientation="Horizontal" HorizontalOptions="Center" >
+            <ImageButton BackgroundColor="Transparent" Source="Download_Icon.png" WidthRequest="80" HeightRequest="80" Command="{Binding DownloadVideo}" CommandParameter="{Binding Item.Id}"/>
+            <ImageButton BackgroundColor="Transparent" WidthRequest="80" HeightRequest="80" Source="tab_feed.png" Command="{Binding DownloadPlayList}" CommandParameter="{Binding Item.Id}"/>
+           
+        </StackLayout> 
+        <Label TextColor="Black" Margin="5" Text="{Binding Result}" 
+                                LineBreakMode="TailTruncation" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16"  />
+        <ProgressBar  Progress="{Binding Progress}" Visual="Material"  ProgressColor="Green"/>
+    </StackLayout>
+
+
+</ContentPage>

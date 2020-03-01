@@ -1,0 +1,65 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             mc:Ignorable="d"
+             x:Class="VideoDownloder.Views.ItemsPage"
+             Title="{Binding Title}"
+             x:Name="BrowseItemsPage" FlowDirection="RightToLeft" Visual="Material" BackgroundColor="DarkSlateGray">
+    <ContentPage.ToolbarItems>
+        <ToolbarItem Text="Add"  />
+    </ContentPage.ToolbarItems>
+
+    <StackLayout>
+        <Entry  x:Name="txt_query" FlowDirection="RightToLeft" BackgroundColor="DarkSlateGray"  Margin="10,10,10,2"  HeightRequest="80" Completed="txt_query_Completed" TextColor="White"  FontSize="Small" Text="{Binding SearchQuery}" HorizontalOptions="FillAndExpand"  Placeholder="مورد جست وجو را تایپ کنید"/>
+        <Label x:Name="Result" TextColor="White"  d:Text="نتایج جست و جو  برای سلام:20 مورد"  HorizontalOptions="FillAndExpand" Margin="10,0,10,10" Text="{Binding Result}"/>
+
+        <ListView x:Name="ItemsListView"
+                ItemsSource="{Binding Items}"
+                VerticalOptions="FillAndExpand"
+                HasUnevenRows="true"
+                  SeparatorVisibility="None"
+                RefreshCommand="{Binding LoadItemsCommand}"
+                IsPullToRefreshEnabled="true"
+                IsRefreshing="{Binding IsBusy, Mode=OneWay}"
+                CachingStrategy="RecycleElement"
+                ItemSelected="OnItemSelected">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <ViewCell>
+                        <StackLayout Padding="6" >
+                            <Frame BackgroundColor="FloralWhite">
+                                <StackLayout>
+                                    <Label TextColor="Black"  Text="{Binding Title}" 
+                                LineBreakMode="TailTruncation" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16" FontAttributes="Bold" />
+                                    <Label TextColor="Black" Margin="5" Text="{Binding Description}" 
+                                LineBreakMode="TailTruncation" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16"  />
+                                        <ffimageloading:CachedImage HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand"
+			                            HeightRequest="300"
+			                            
+                                        BitmapOptimizations="True"
+                                        FadeAnimationEnabled="True"
+			                            Source = "{Binding Thumbnails.StandardResUrl}">
+                                        </ffimageloading:CachedImage>
+                                    <Label TextColor="Black" Margin="5" Text="{Binding Duration}" 
+                                LineBreakMode="TailTruncation" 
+                                Style="{DynamicResource ListItemTextStyle}" 
+                                FontSize="16"  />
+                                </StackLayout>
+
+                            </Frame>
+
+                        </StackLayout>
+                    </ViewCell>
+                </DataTemplate>
+            </ListView.ItemTemplate>
+        </ListView>
+    </StackLayout>
+
+</ContentPage>
