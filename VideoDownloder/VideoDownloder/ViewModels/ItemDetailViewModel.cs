@@ -9,8 +9,9 @@ namespace VideoDownloder.ViewModels
 {
     public class ItemDetailViewModel : BaseViewModel
     {
-        public Command<string> DownloadVideo { get; set; }
-        public Command<string> DownloadPlayList { get; set; }
+        Utube tube;
+        public Command DownloadVideo { get; set; }
+        public Command DownloadPlayList { get; set; }
 
         private string _Result;
 
@@ -34,18 +35,18 @@ namespace VideoDownloder.ViewModels
         {
             Title = item?.Title;
             Item = item;
-            DownloadVideo = new Command<string>(async (id) => await ExecuteDownloadVideo(id));
-            DownloadPlayList = new Command<string>(async (id) => await ExecuteDownloadPlayList(id));
-
+            DownloadVideo = new Command(async () => await ExecuteDownloadVideo());
+            DownloadPlayList = new Command(async () => await ExecuteDownloadPlayList());
+            tube = new Utube();
         }
 
-        private async Task ExecuteDownloadVideo(string id)
+        private async Task ExecuteDownloadVideo()
         {
             Result = "در حال آماده سازی برای دانلود ...";
             var status = await Helper.CheckPermissionAsync();
             if (status)
             {
-                Utube tube = new Utube();
+
                 tube.Progress.ProgressChanged += Progress_ProgressChanged;
                 await tube.DownloadVideoAsync(Item);
 
@@ -68,12 +69,11 @@ namespace VideoDownloder.ViewModels
 
         }
 
-        private async Task ExecuteDownloadPlayList(string id)
+        private async Task ExecuteDownloadPlayList()
         {
             var status = await Helper.CheckPermissionAsync();
             if (status)
             {
-                Utube tube = new Utube();
                 tube.Progress.ProgressChanged += Progress_ProgressChanged;
                 await tube.DownloadPlayList(Item.GetUrl());
 

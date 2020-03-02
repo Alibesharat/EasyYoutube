@@ -37,7 +37,6 @@ namespace Downloader
             path.EnsureExsit();
             foreach (var video in PlayList.Videos)
             {
-
                 await DownloadVideoAsync(video, path);
                 await GenrateSubTitleAsync(video.Id, path, video.Title.ValidNameForWindows());
             }

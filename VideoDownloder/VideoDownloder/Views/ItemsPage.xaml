@@ -6,15 +6,33 @@
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              mc:Ignorable="d"
              x:Class="VideoDownloder.Views.ItemsPage"
-             Title="{Binding Title}"
-             x:Name="BrowseItemsPage" FlowDirection="RightToLeft" Visual="Material" BackgroundColor="DarkSlateGray">
-    <ContentPage.ToolbarItems>
-        <ToolbarItem Text="Add"  />
-    </ContentPage.ToolbarItems>
+             x:Name="BrowseItemsPage" 
+             FlowDirection="RightToLeft"
+             Visual="Material" 
+             Shell.NavBarIsVisible="False"
+             BackgroundColor="DarkSlateGray" NavigationPage.HasNavigationBar="False">
+ 
 
     <StackLayout>
-        <Entry  x:Name="txt_query" FlowDirection="RightToLeft" BackgroundColor="DarkSlateGray"  Margin="10,10,10,2"  HeightRequest="80" Completed="txt_query_Completed" TextColor="White"  FontSize="Small" Text="{Binding SearchQuery}" HorizontalOptions="FillAndExpand"  Placeholder="مورد جست وجو را تایپ کنید"/>
-        <Label x:Name="Result" TextColor="White"  d:Text="نتایج جست و جو  برای سلام:20 مورد"  HorizontalOptions="FillAndExpand" Margin="10,0,10,10" Text="{Binding Result}"/>
+        <Frame CornerRadius="25" Padding="0" Margin="10" HeightRequest="55">
+            <StackLayout>
+                <Entry    
+                    x:Name="txt_query"
+                    FlowDirection="RightToLeft"
+                    HorizontalTextAlignment="Center"
+                    BackgroundColor="WhiteSmoke"
+                    HeightRequest="80"
+                    Completed="txt_query_Completed"
+                    TextColor="DarkSlateGray"
+                    FontSize="Small"
+                    Text="{Binding SearchQuery}"
+                    HorizontalOptions="FillAndExpand"
+                    PlaceholderColor="LightGray"
+                    Placeholder="برای جست وجوی ویدیو اینجا تایپ کنید"
+                    FontFamily="Shabnam.ttf#Shabnam"/>
+            </StackLayout>
+          
+        </Frame>
 
         <ListView x:Name="ItemsListView"
                 ItemsSource="{Binding Items}"
@@ -30,27 +48,28 @@
                 <DataTemplate>
                     <ViewCell>
                         <StackLayout Padding="6" >
-                            <Frame BackgroundColor="FloralWhite">
+                            <Frame Padding="6" BackgroundColor="FloralWhite">
                                 <StackLayout>
-                                    <Label TextColor="Black"  Text="{Binding Title}" 
+                                    <Label FontFamily="Shabnam.ttf#Shabnam" TextColor="Black"  Text="{Binding Title}" 
                                 LineBreakMode="TailTruncation" 
                                 Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16" FontAttributes="Bold" />
-                                    <Label TextColor="Black" Margin="5" Text="{Binding Description}" 
+                                FontSize="14" FontAttributes="Bold" />
+                                    <Label FontFamily="Shabnam.ttf#Shabnam" TextColor="Black" Margin="5" Text="{Binding Description}" 
                                 LineBreakMode="TailTruncation" 
                                 Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16"  />
-                                        <ffimageloading:CachedImage HorizontalOptions="FillAndExpand"  VerticalOptions="FillAndExpand"
-			                            HeightRequest="300"
-			                            
+                                FontSize="12"  />
+                                    <Frame Padding="2" BackgroundColor="Black">
+                                        <ffimageloading:CachedImage Aspect="AspectFill"
                                         BitmapOptimizations="True"
                                         FadeAnimationEnabled="True"
 			                            Source = "{Binding Thumbnails.StandardResUrl}">
                                         </ffimageloading:CachedImage>
-                                    <Label TextColor="Black" Margin="5" Text="{Binding Duration}" 
+
+                                    </Frame>
+                                    <Label FontFamily="Shabnam.ttf#Shabnam" TextColor="Black" Margin="5" Text="{Binding Duration}" 
                                 LineBreakMode="TailTruncation" 
                                 Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16"  />
+                                FontSize="12"  />
                                 </StackLayout>
 
                             </Frame>

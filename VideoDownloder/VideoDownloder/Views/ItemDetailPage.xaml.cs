@@ -17,6 +17,7 @@ namespace VideoDownloder.Views
             InitializeComponent();
             BindingContext = this.viewModel = viewModel;
           
+          
         }
 
         public ItemDetailPage(Video item)

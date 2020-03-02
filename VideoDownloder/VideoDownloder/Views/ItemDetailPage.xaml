@@ -3,25 +3,36 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              mc:Ignorable="d"
              x:Class="VideoDownloder.Views.ItemDetailPage"
-             Title="{Binding Title}">
-
+             Title="{Binding Title}"
+             
+             NavigationPage.HasNavigationBar="false">
+   
     <StackLayout Padding="6" >
         <Frame BackgroundColor="FloralWhite">
             <StackLayout>
                 <Label TextColor="Black"  Text="{Binding Item.Title}" 
                                 LineBreakMode="TailTruncation" 
                                 Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16" FontAttributes="Bold" />
+                                FontSize="14"  FontFamily="Shabnam.ttf#Shabnam" FontAttributes="Bold" />
                 <Label TextColor="Black" Margin="5" Text="{Binding Item.Description}" 
                                 LineBreakMode="TailTruncation" 
                                 Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16"  />
+                                FontSize="12"  />
+                <Frame Padding="2" BackgroundColor="Black">
+                    <ffimageloading:CachedImage  Aspect="AspectFill"
+                                        BitmapOptimizations="True"
+                                        FadeAnimationEnabled="True"
+			                            Source = "{Binding Item.Thumbnails.StandardResUrl}">
+                    </ffimageloading:CachedImage>
+
+                </Frame>
                 <Label TextColor="Black" Margin="5" Text="{Binding Item.Duration}" 
                                 LineBreakMode="TailTruncation" 
                                 Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16"  />
+                                FontSize="12"  FontFamily="Shabnam.ttf#Shabnam" />
              
             </StackLayout>
 

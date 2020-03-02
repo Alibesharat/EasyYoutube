@@ -21,8 +21,6 @@ namespace VideoDownloder.Droid
             Xamarin.Forms.FormsMaterial.Init(this, savedInstanceState);
             CachedImageRenderer.Init(true);
             CachedImageRenderer.InitImageViewHandler();
-           
-
             LoadApplication(new App());
         }
 
