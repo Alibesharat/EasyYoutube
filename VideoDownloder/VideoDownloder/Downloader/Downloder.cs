@@ -19,20 +19,45 @@ namespace Downloader
             client = new YoutubeClient();
         }
         public readonly Progress<double> Progress = new Progress<double>();
-        public async Task DownloadVideoByUrlAsync(string url)
-        {
-            var id = YoutubeClient.ParseVideoId(url);
-            var video = await client.GetVideoAsync(id);
-            string ValidName = video.Title.ValidNameForWindows();
-            await DownloadVideoAsync(video, path);
-            await GenrateSubTitleAsync(id, path, ValidName);
-        }
 
-        public async Task DownloadPlayList(string url)
+        public async Task DownloadPlayList(string Url)
         {
-            var id = YoutubeClient.ParsePlaylistId(url);
+            var id = YoutubeClient.ParsePlaylistId(Url);
             var client = new YoutubeClient();
             var PlayList = await client.GetPlaylistAsync(id);
+
+            path = Path.Combine(path, PlayList.Title.ValidNameForWindows());
+            path.EnsureExsit();
+            foreach (var video in PlayList.Videos)
+            {
+                await DownloadVideoAsync(video, path);
+                await GenrateSubTitleAsync(video.Id, path, video.Title.ValidNameForWindows());
+            }
+
+
+
+        }
+
+        public async Task DownloadPlayList(Video Video)
+        {
+            var id = Video.GetVideoMixPlaylistId();
+            var client = new YoutubeClient();
+            var PlayList = await client.GetPlaylistAsync(id);
+
+            path = Path.Combine(path, PlayList.Title.ValidNameForWindows());
+            path.EnsureExsit();
+            foreach (var video in PlayList.Videos)
+            {
+                await DownloadVideoAsync(video, path);
+                await GenrateSubTitleAsync(video.Id, path, video.Title.ValidNameForWindows());
+            }
+
+
+
+        }
+
+        public async Task DownloadPlayList(Playlist PlayList)
+        {
             path = Path.Combine(path, PlayList.Title.ValidNameForWindows());
             path.EnsureExsit();
             foreach (var video in PlayList.Videos)
@@ -46,20 +71,26 @@ namespace Downloader
         }
 
 
-
+        public async Task DownloadVideoAsync(string url)
+        {
+            var id = YoutubeClient.ParseVideoId(url);
+            var video = await client.GetVideoAsync(id);
+            string ValidName = video.Title.ValidNameForWindows();
+            await DownloadVideoAsync(video, path);
+            await GenrateSubTitleAsync(id, path, ValidName);
+        }
 
         public async Task DownloadVideoAsync(Video video)
         {
             try
             {
-
                 string ValidName = video.Title.ValidNameForWindows();
                 var streamInfoSet = await client.GetVideoMediaStreamInfosAsync(video.Id);
                 var streamInfo = streamInfoSet.Muxed.WithHighestVideoQuality();
                 var ext = streamInfo.Container.GetFileExtension();
                 path.EnsureExsit();
+                await GenrateSubTitleAsync(video.Id, path, video.Title);
                 await client.DownloadMediaStreamAsync(streamInfo, Path.Combine(path, $"{ video.Title}.{ext}"), Progress);
-
             }
             catch (Exception ex)
             {
@@ -68,6 +99,22 @@ namespace Downloader
             }
 
         }
+
+
+
+        public async Task<Playlist> GetPlayList(string Url)
+        {
+            if (YoutubeClient.TryParsePlaylistId(Url, out string Id))
+            {
+                var client = new YoutubeClient();
+                var PlayList = await client.GetPlaylistAsync(Id);
+                return PlayList;
+            }
+            return default;
+
+        }
+
+
 
 
         private async Task DownloadVideoAsync(Video video, string path)

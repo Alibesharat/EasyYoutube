@@ -8,10 +8,10 @@ using YoutubeExplode.Models;
 
 namespace VideoDownloder.ViewModels
 {
-    public class ItemsViewModel : BaseViewModel
+    public class HomeViewModel : BaseViewModel
     {
         public ObservableCollection<Video> Items { get; set; }
-        public Command LoadItemsCommand { get; set; }
+        public Command SearchVideoCommand { get; set; }
 
         private string _SearchQuery;
 
@@ -30,18 +30,18 @@ namespace VideoDownloder.ViewModels
             set { SetProperty(ref _Result, value); }
         }
 
-
-
-        public ItemsViewModel()
+        public HomeViewModel()
         {
             Title = "جست وجو";
             Items = new ObservableCollection<Video>();
-            LoadItemsCommand = new Command(async () => await ExecuteLoadItemsCommand());
+            SearchVideoCommand = new Command(async () => await ExecuteSearchVideoCommand());
 
 
         }
 
-        async Task ExecuteLoadItemsCommand()
+      
+
+        async Task ExecuteSearchVideoCommand()
         {
             if (IsBusy)
                 return;

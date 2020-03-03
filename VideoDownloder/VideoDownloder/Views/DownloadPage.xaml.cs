@@ -34,7 +34,7 @@ namespace VideoDownloder.Views
                 {
 
                     tube.Progress.ProgressChanged += Progress_ProgressChanged;
-                    await tube.DownloadVideoByUrlAsync(txt_url.Text);
+                    await tube.DownloadVideoAsync(txt_url.Text);
 
                 }
                 else

@@ -13,7 +13,7 @@
     -->
     <Shell.Resources>
         <ResourceDictionary>
-            <Color x:Key="NavigationPrimary">#2196F3</Color>
+            <Color x:Key="NavigationPrimary">White</Color>
             <Style x:Key="BaseStyle" TargetType="Element">
                 <Setter Property="Shell.BackgroundColor" Value="{StaticResource NavigationPrimary}" />
                 <Setter Property="Shell.ForegroundColor" Value="White" />
@@ -21,9 +21,9 @@
                 <Setter Property="Shell.DisabledColor" Value="#B4FFFFFF" />
                 <Setter Property="Shell.UnselectedColor" Value="#95FFFFFF" />
                 <Setter Property="Shell.TabBarBackgroundColor" Value="{StaticResource NavigationPrimary}" />
-                <Setter Property="Shell.TabBarForegroundColor" Value="White"/>
-                <Setter Property="Shell.TabBarUnselectedColor" Value="#95FFFFFF"/>
-                <Setter Property="Shell.TabBarTitleColor" Value="White"/>
+                <Setter Property="Shell.TabBarForegroundColor" Value="Red"/>
+                <Setter Property="Shell.TabBarUnselectedColor" Value="Gray"/>
+                <Setter Property="Shell.TabBarTitleColor" Value="DarkBlue"/>
             </Style>
             <Style TargetType="TabBar" BasedOn="{StaticResource BaseStyle}" />
         </ResourceDictionary>
@@ -31,11 +31,14 @@
 
     <!-- Your Pages -->
     <TabBar>
-        <Tab Title="جست و جو" Icon="tab_feed.png">
-            <ShellContent ContentTemplate="{DataTemplate local:ItemsPage}" />
+        <Tab Title="خانه" Icon="home_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate local:HomePage}" />
         </Tab>
-       
-        <Tab Title="دانلود ها" Icon="Download_Icon.png">
+        <Tab Title="پلی لیست" Icon="playlist_icon.png">
+            <ShellContent ContentTemplate="{DataTemplate local:DownloadQuee}" />
+        </Tab>
+
+        <Tab Title="دانلود مستقیم" Icon="Download_Icon.png">
             <ShellContent ContentTemplate="{DataTemplate local:DownloadPage}"/>
         </Tab>
     </TabBar>

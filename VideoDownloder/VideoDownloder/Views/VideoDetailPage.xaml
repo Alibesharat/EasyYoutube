@@ -5,9 +5,8 @@
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              mc:Ignorable="d"
-             x:Class="VideoDownloder.Views.ItemDetailPage"
+             x:Class="VideoDownloder.Views.VideoDetailPage"
              Title="{Binding Title}"
-             
              NavigationPage.HasNavigationBar="false">
    
     <StackLayout Padding="6" >
@@ -38,9 +37,8 @@
 
         </Frame>
         <StackLayout  Orientation="Horizontal" HorizontalOptions="Center" >
-            <ImageButton BackgroundColor="Transparent" Source="Download_Icon.png" WidthRequest="80" HeightRequest="80" Command="{Binding DownloadVideo}" CommandParameter="{Binding Item.Id}"/>
-            <ImageButton BackgroundColor="Transparent" WidthRequest="80" HeightRequest="80" Source="tab_feed.png" Command="{Binding DownloadPlayList}" CommandParameter="{Binding Item.Id}"/>
-           
+            <ImageButton BackgroundColor="Transparent" Source="Download_Icon.png" WidthRequest="80" HeightRequest="80" Command="{Binding DownloadVideo}" />
+            <ImageButton BackgroundColor="Transparent" WidthRequest="80" HeightRequest="80" Source="tab_feed.png" Command="{Binding OpenPlayList}"  />
         </StackLayout> 
         <Label TextColor="Black" Margin="5" Text="{Binding Result}" 
                                 LineBreakMode="TailTruncation" 

@@ -7,11 +7,12 @@ using YoutubeExplode.Models;
 
 namespace VideoDownloder.ViewModels
 {
-    public class ItemDetailViewModel : BaseViewModel
+    public class VideoDetailViewModel : BaseViewModel
     {
         Utube tube;
+        public Video Item { get; set; }
         public Command DownloadVideo { get; set; }
-        public Command DownloadPlayList { get; set; }
+       
 
         private string _Result;
 
@@ -30,13 +31,14 @@ namespace VideoDownloder.ViewModels
             set { SetProperty(ref _Progress, value); }
         }
 
+        
 
-        public ItemDetailViewModel(Video item = null)
+
+        public VideoDetailViewModel(Video item = null)
         {
             Title = item?.Title;
             Item = item;
             DownloadVideo = new Command(async () => await ExecuteDownloadVideo());
-            DownloadPlayList = new Command(async () => await ExecuteDownloadPlayList());
             tube = new Utube();
         }
 
@@ -69,23 +71,9 @@ namespace VideoDownloder.ViewModels
 
         }
 
-        private async Task ExecuteDownloadPlayList()
-        {
-            var status = await Helper.CheckPermissionAsync();
-            if (status)
-            {
-                tube.Progress.ProgressChanged += Progress_ProgressChanged;
-                await tube.DownloadPlayList(Item.GetUrl());
+       
 
-            }
-            else
-            {
-
-                Result = "Premisson not granted";
-            }
-        }
-
-        public Video Item { get; set; }
+        
 
     }
 }
