@@ -123,8 +123,8 @@ namespace VideoDownloder.ViewModels
         {
 
             var rounded = Math.Floor(e * 100);
-            Result = $" دانلود شده  : {rounded} %";
-            if (e < 1)
+            Result = $" {rounded} %";
+            if (e <= 1)
             {
                 Progress = e;
 

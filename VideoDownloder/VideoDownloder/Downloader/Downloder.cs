@@ -26,6 +26,17 @@ namespace Downloader
 
 
 
+        public async Task<Playlist> GetPlayList(string Url)
+        {
+            if (YoutubeClient.TryParsePlaylistId(Url, out string Id))
+            {
+                var client = new YoutubeClient();
+                var PlayList = await client.GetPlaylistAsync(Id);
+                return PlayList;
+            }
+            return default;
+
+        }
 
         public async Task DownloadPlayListAsync(Playlist PlayList)
         {
@@ -38,7 +49,7 @@ namespace Downloader
                 bool IsExsit = await CheckExsit(video.Title, path);
                 if (!IsExsit)
                 {
-                    await DownloadVideoAsync(video, path);
+                    await DownloadAsync(video, path);
                     await GenrateSubTitleAsync(video.Id, path, video.Title.ValidNameForWindows());
                     count++;
                     On_Download_Finish(this, count, "دانلود تکمیل شد");
@@ -56,6 +67,22 @@ namespace Downloader
 
 
         }
+        public async Task DownloadVideoAsync(Video video)
+        {
+            if (!await CheckExsit(video.Title, path))
+            {
+                await DownloadAsync(video);
+                On_Download_Finish(this, 1, "دانلود ویدیو انجام شد");
+            }
+            else
+            {
+                On_Download_Finish(this, -1, "این ویدیو از قبل دانلود شده است");
+
+            }
+
+        }
+
+
 
         private async Task<bool> CheckExsit(string title, string path)
         {
@@ -67,64 +94,17 @@ namespace Downloader
             }
             return IsGranted;
         }
-
-        public async Task DownloadVideoAsync(string url)
-        {
-            var id = YoutubeClient.ParseVideoId(url);
-            var video = await client.GetVideoAsync(id);
-            string ValidName = video.Title.ValidNameForWindows();
-            await DownloadVideoAsync(video, path);
-            await GenrateSubTitleAsync(id, path, ValidName);
-        }
-
-        public async Task DownloadVideoAsync(Video video)
+        private async Task DownloadAsync(Video video, string Savepath = "")
         {
             try
             {
+                if (string.IsNullOrWhiteSpace(Savepath)) Savepath = path;
                 string ValidName = video.Title.ValidNameForWindows();
                 var streamInfoSet = await client.GetVideoMediaStreamInfosAsync(video.Id);
                 var streamInfo = streamInfoSet.Muxed.WithHighestVideoQuality();
                 var ext = streamInfo.Container.GetFileExtension();
-                path.EnsureExsit();
-                await GenrateSubTitleAsync(video.Id, path, video.Title);
-                await client.DownloadMediaStreamAsync(streamInfo, Path.Combine(path, $"{ video.Title}.{ext}"), Progress);
-            }
-            catch (Exception ex)
-            {
-
-                throw ex;
-            }
-
-        }
-
-
-
-        public async Task<Playlist> GetPlayList(string Url)
-        {
-            if (YoutubeClient.TryParsePlaylistId(Url, out string Id))
-            {
-                var client = new YoutubeClient();
-                var PlayList = await client.GetPlaylistAsync(Id);
-                return PlayList;
-            }
-            return default;
-
-        }
-
-
-
-
-        private async Task DownloadVideoAsync(Video video, string path)
-        {
-            try
-            {
-
-                string ValidName = video.Title.ValidNameForWindows();
-                var streamInfoSet = await client.GetVideoMediaStreamInfosAsync(video.Id);
-                var streamInfo = streamInfoSet.Muxed.WithHighestVideoQuality();
-                var ext = streamInfo.Container.GetFileExtension();
-                path.EnsureExsit();
-                await client.DownloadMediaStreamAsync(streamInfo, Path.Combine(path, $"{ video.Title}.{ext}"), Progress);
+                Savepath.EnsureExsit();
+                await client.DownloadMediaStreamAsync(streamInfo, Path.Combine(Savepath, $"{ video.Title}.{ext}"), Progress);
 
             }
             catch (Exception ex)
@@ -134,7 +114,6 @@ namespace Downloader
             }
 
         }
-
         private async Task<string> GenrateSubTitleAsync(string id, string path, string Name)
         {
             try

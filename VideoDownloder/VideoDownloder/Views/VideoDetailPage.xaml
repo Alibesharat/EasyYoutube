@@ -9,7 +9,6 @@
              Title="{Binding Title}"
              Visual="Material"
              BackgroundColor="GhostWhite"
-             Shell.NavBarIsVisible="False"
              FlowDirection="RightToLeft">
    
     <StackLayout Padding="6" >
@@ -33,8 +32,9 @@
         <StackLayout  Orientation="Horizontal" HorizontalOptions="Center" >
             <Button  Margin="15"  Command="{Binding DownloadVideo}" Text="دانلود به همراه زیرنویس" />
         </StackLayout> 
-        <Label   Text="{Binding Result}"  Style="{DynamicResource SubTitr}" />
-        <ProgressBar  Progress="{Binding Progress}" Visual="Material"  ProgressColor="Green"/>
+        <ProgressBar HeightRequest="40"  Progress="{Binding Progress}" Visual="Material"  ProgressColor="Green"/>
+        <Label Margin="0,-35,0,0" HorizontalTextAlignment="Center" TextColor="White" Text="{Binding Result}"   />
+        <Label   Text="{Binding Message}"  Style="{DynamicResource SubTitr}" />
     </StackLayout>
 
 

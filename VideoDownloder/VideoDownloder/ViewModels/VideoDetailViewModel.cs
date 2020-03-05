@@ -22,6 +22,14 @@ namespace VideoDownloder.ViewModels
             set { SetProperty(ref _Result, value); }
         }
 
+        private string _Message;
+
+        public string Message
+        {
+            get { return _Message; }
+            set { SetProperty(ref _Message, value); }
+        }
+
 
         private Double _Progress;
 
@@ -50,6 +58,7 @@ namespace VideoDownloder.ViewModels
             {
 
                 tube.Progress.ProgressChanged += Progress_ProgressChanged;
+                tube.On_Download_Finish += Tube_On_Download_Finish;
                 await tube.DownloadVideoAsync(Item);
 
             }
@@ -61,12 +70,21 @@ namespace VideoDownloder.ViewModels
 
         }
 
+        private void Tube_On_Download_Finish(object sender, int e, string message)
+        {
+            Message = message;
+            Result = "اتمام عملیات";
+        }
+
         private void Progress_ProgressChanged(object sender, double e)
         {
-            Result = $"{(Math.Floor(e * 100))} %";
-            if (e <= 100)
+
+            var rounded = Math.Floor(e * 100);
+            Result = $" {rounded} %";
+            if (e <= 1)
             {
                 Progress = e;
+
             }
 
         }
