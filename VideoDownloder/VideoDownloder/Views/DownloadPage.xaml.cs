@@ -21,35 +21,35 @@ namespace VideoDownloder.Views
 
         private async void Button_Clicked(object sender, EventArgs e)
         {
-            if ((string.IsNullOrWhiteSpace(txt_url.Text)))
-            {
-                await DisplayAlert("Download", "Please Fill the url", "Ok");
+            //if ((string.IsNullOrWhiteSpace(txt_url.Text)))
+            //{
+            //    await DisplayAlert("Download", "Please Fill the url", "Ok");
 
-            }
-            else
-            {
+            //}
+            //else
+            //{
 
-                var status = await Helper.CheckPermissionAsync();
-                if (status)
-                {
+            //    var status = await Helper.CheckPermissionAsync();
+            //    if (status)
+            //    {
 
-                    tube.Progress.ProgressChanged += Progress_ProgressChanged;
-                    await tube.DownloadVideoAsync(txt_url.Text);
+            //        tube.Progress.ProgressChanged += Progress_ProgressChanged;
+            //        await tube.DownloadVideoAsync(txt_url.Text);
 
-                }
-                else
-                {
-                    prg.Text = "Premisson not granted";
-                }
+            //    }
+            //    else
+            //    {
+            //        prg.Text = "Premisson not granted";
+            //    }
 
 
-            }
+            //}
 
         }
 
         private void Progress_ProgressChanged(object sender, double e)
         {
-            prg.Text = $"Download Prgress : {(Math.Floor(e * 100)) } %";
+           // prg.Text = $"Download Prgress : {(Math.Floor(e * 100)) } %";
         }
 
 

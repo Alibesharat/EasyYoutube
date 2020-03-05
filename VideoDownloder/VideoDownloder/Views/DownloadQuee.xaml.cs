@@ -18,7 +18,6 @@ namespace VideoDownloder.Views
         {
             InitializeComponent();
             BindingContext = viewModel = new DownloadQueeViewModel() ;
-
         }
 
        

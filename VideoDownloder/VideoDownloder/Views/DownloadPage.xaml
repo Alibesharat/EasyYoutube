@@ -3,17 +3,44 @@
              xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
              mc:Ignorable="d"
+             Visual="Material"
+             BackgroundColor="GhostWhite"
+             Shell.NavBarIsVisible="False"
+             FlowDirection="RightToLeft"
              x:Class="VideoDownloder.Views.DownloadPage">
     <ContentPage.Content>
-        
         <StackLayout>
-            <Editor x:Name="txt_url" Margin="10,30" HorizontalOptions="FillAndExpand" HeightRequest="50" Placeholder="PlaceDownloadUrl">
-            </Editor>
-            <Button Margin="10" Text="Download" Clicked="Button_Clicked"></Button>
-            <Label x:Name="prg" Text="DownLoad Progress"
-                VerticalOptions="CenterAndExpand" 
-                HorizontalOptions="CenterAndExpand" />
+            <Frame Style="{DynamicResource FramSearch}">
+                <StackLayout>
+                    <Entry    
+                    x:Name="txt_query"
+                    ReturnCommand="{Binding SearchVideoCommand}"
+                    Text="{Binding SearchQuery}"
+                    />
+                </StackLayout>
+
+            </Frame>
+            <Label  Text="در کادر بالا ، لینک ویدیو  را وارد نمایید"  HorizontalOptions="CenterAndExpand"/>
+            <StackLayout Padding="6" >
+                <Frame Style="{DynamicResource Item}">
+                    <StackLayout>
+                        <Label  Text="{Binding Title}" Style="{DynamicResource Titr}" />
+                        <Label   Text="{Binding Description}"  Style="{DynamicResource SubTitr}" />
+                        <Frame Padding="2" BackgroundColor="Black">
+                            <ffimageloading:CachedImage Aspect="AspectFill"
+                                        BitmapOptimizations="True"
+                                        FadeAnimationEnabled="True"
+			                            Source = "{Binding Thumbnails.StandardResUrl}">
+                            </ffimageloading:CachedImage>
+
+                        </Frame>
+                        <Label  Text="{Binding Duration}" Style="{DynamicResource SubTitr}" />
+                    </StackLayout>
+                </Frame>
+
+            </StackLayout>
         </StackLayout>
     </ContentPage.Content>
 </ContentPage>

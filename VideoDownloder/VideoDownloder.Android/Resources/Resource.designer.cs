@@ -10974,7 +10974,10 @@ namespace VideoDownloder.Droid
 			public const int tooltip_frame_light = 2131165306;
 			
 			// aapt resource value: 0x7F07007B
-			public const int xamarin_logo = 2131165307;
+			public const int unnamed = 2131165307;
+			
+			// aapt resource value: 0x7F07007C
+			public const int xamarin_logo = 2131165308;
 			
 			static Drawable()
 			{
