@@ -8,9 +8,10 @@
              x:Class="VideoDownloder.Views.VideoDetailPage"
              Title="{Binding Title}"
              Visual="Material"
+             
              BackgroundColor="GhostWhite"
              FlowDirection="RightToLeft">
-   
+
     <StackLayout Padding="6" >
         <Frame >
             <StackLayout>
@@ -25,13 +26,13 @@
                     </ffimageloading:CachedImage>
                 </Frame>
                 <Label  Text="{Binding Item.Duration}"  Style="{DynamicResource SubTitr}"  />
-             
+
             </StackLayout>
 
         </Frame>
         <StackLayout  Orientation="Horizontal" HorizontalOptions="Center" >
             <Button  Margin="15"  Command="{Binding DownloadVideo}" Text="دانلود به همراه زیرنویس" />
-        </StackLayout> 
+        </StackLayout>
         <ProgressBar HeightRequest="40"  Progress="{Binding Progress}" Visual="Material"  ProgressColor="Green"/>
         <Label Margin="0,-35,0,0" HorizontalTextAlignment="Center" TextColor="White" Text="{Binding Result}"   />
         <Label   Text="{Binding Message}"  Style="{DynamicResource SubTitr}" />
