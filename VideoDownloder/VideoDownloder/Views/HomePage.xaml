@@ -17,12 +17,15 @@
 
     <StackLayout>
         <Frame Style="{DynamicResource FramSearch}">
-            <StackLayout>
+            <StackLayout Orientation="Horizontal">
                 <Entry    
                     x:Name="txt_query"
                     ReturnCommand="{Binding SearchVideoCommand}"
                     Text="{Binding SearchQuery}"
+                     ReturnType="Search"
+                    IsTextPredictionEnabled="True"
                     Placeholder=""/>
+                
             </StackLayout>
 
         </Frame>

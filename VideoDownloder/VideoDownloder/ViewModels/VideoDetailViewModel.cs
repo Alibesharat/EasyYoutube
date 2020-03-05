@@ -12,7 +12,7 @@ namespace VideoDownloder.ViewModels
         Utube tube;
         public Video Item { get; set; }
         public Command DownloadVideo { get; set; }
-       
+
 
         private string _Result;
 
@@ -31,7 +31,7 @@ namespace VideoDownloder.ViewModels
             set { SetProperty(ref _Progress, value); }
         }
 
-        
+
 
 
         public VideoDetailViewModel(Video item = null)
@@ -45,7 +45,7 @@ namespace VideoDownloder.ViewModels
         private async Task ExecuteDownloadVideo()
         {
             Result = "در حال آماده سازی برای دانلود ...";
-            var status = await Helper.CheckPermissionAsync();
+            var status = await Helper.CheckPermissionWriteAsync();
             if (status)
             {
 
@@ -63,7 +63,7 @@ namespace VideoDownloder.ViewModels
 
         private void Progress_ProgressChanged(object sender, double e)
         {
-            Result = $" دانلود شده  : {(Math.Floor(e * 100))} %";
+            Result = $"{(Math.Floor(e * 100))} %";
             if (e <= 100)
             {
                 Progress = e;
@@ -71,9 +71,9 @@ namespace VideoDownloder.ViewModels
 
         }
 
-       
 
-        
+
+
 
     }
 }

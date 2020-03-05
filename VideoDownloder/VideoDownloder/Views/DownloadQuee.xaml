@@ -17,11 +17,14 @@
                     <Entry    
                     x:Name="txt_query"
                     ReturnCommand="{Binding SearchVideoCommand}"
+                    ReturnType="Done"
                     Text="{Binding SearchQuery}"
                     />
                 </StackLayout>
 
             </Frame>
+            <Button BackgroundColor="AntiqueWhite" TextColor="Gray" Command="{Binding SearchVideoCommand}" HorizontalOptions="Center" Text="Go" WidthRequest="80" HeightRequest="35"/>
+
             <Label IsVisible="False" Text="در کادر بالا ، لینک پلی لیست را وارد نمایید"  HorizontalOptions="CenterAndExpand">
                 <Label.Triggers>
                     <DataTrigger TargetType="Label"
@@ -32,7 +35,7 @@
                 </Label.Triggers>
             </Label>
             <StackLayout Padding="6" >
-                <Frame Padding="6" BackgroundColor="FloralWhite" IsVisible="{Binding Visibily}">
+                <Frame Padding="6" BackgroundColor="WhiteSmoke" IsVisible="{Binding Visibily}">
                     <StackLayout>
                         <Label FontFamily="Shabnam.ttf#Shabnam" TextColor="Black"  Text="{Binding PlayListInfo.Title}" 
                                 LineBreakMode="TailTruncation" 
@@ -42,14 +45,14 @@
                                 LineBreakMode="TailTruncation" 
                                 Style="{DynamicResource ListItemTextStyle}" 
                                 FontSize="14" FontAttributes="Bold" />
-                        <Label FontFamily="Shabnam.ttf#Shabnam" TextColor="Black" Margin="5" Text="{Binding PlayListInfo.Description}" 
-                                LineBreakMode="TailTruncation" 
-                                Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="12"  />
-                        <Label FontFamily="Shabnam.ttf#Shabnam" TextColor="Black" Margin="5" Text="{Binding PlayListInfo.Count}" 
-                                LineBreakMode="TailTruncation" 
-                                Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="12"  />
+                      
+                        <ProgressBar HeightRequest="40"   Progress="{Binding Progress}" Visual="Material"  ProgressColor="Green"/>
+                        <Label  Margin="5,-28,5,5" HorizontalTextAlignment="Center" TextColor="White"  Text="{Binding Result}"  Style="{DynamicResource SubTitr}" />
+
+                        <Label    Text="{Binding VideoDownloadedCount}"  Style="{DynamicResource SubTitr}" />
+                        <Label    Text="{Binding VideoDownloadingNumber}"  Style="{DynamicResource SubTitr}" />
+                        <Button Command="{Binding DownloadPlayList}" HorizontalOptions="Center"  BackgroundColor="DarkOliveGreen" TextColor="White" Text="💾  دانلود همه پلی لیست"/>
+
                     </StackLayout>
 
                 </Frame>
@@ -67,7 +70,7 @@
                 ItemSelected="OnItemSelected">
                 <ListView.ItemTemplate>
                     <DataTemplate>
-                        <ViewCell>
+                        <ViewCell >
                             <StackLayout Padding="6" >
                                 <Frame Style="{DynamicResource Item}">
                                     <StackLayout>

@@ -17,10 +17,10 @@ namespace VideoDownloder.Views
         public DownloadQuee()
         {
             InitializeComponent();
-            BindingContext = viewModel = new DownloadQueeViewModel() ;
+            BindingContext = viewModel = new DownloadQueeViewModel();
         }
 
-       
+
 
         async void OnItemSelected(object sender, SelectedItemChangedEventArgs e)
         {
@@ -32,3 +32,5 @@ namespace VideoDownloder.Views
         }
     }
 }
+
+        

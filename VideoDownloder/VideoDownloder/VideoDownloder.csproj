@@ -31,4 +31,8 @@
       <DependentUpon>VideoDetailPage.xaml</DependentUpon>
     </Compile>
   </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="Elements\" />
+  </ItemGroup>
 </Project>

@@ -18,10 +18,11 @@
                 <Label   Text="{Binding Item.Title}"  Style="{DynamicResource Titr}"  />
                 <Label  Text="{Binding Item.Description}"   Style="{DynamicResource SubTitr}" />
                 <Frame Padding="2" BackgroundColor="Black">
-                    <ffimageloading:CachedImage  Aspect="AspectFill"
-                                        BitmapOptimizations="True"
-                                        FadeAnimationEnabled="True"
-			                            Source = "{Binding Item.Thumbnails.StandardResUrl}">
+                    <ffimageloading:CachedImage
+                        Aspect="AspectFill"
+                        BitmapOptimizations="True"
+                        FadeAnimationEnabled="True"
+			            Source = "{Binding Item.Thumbnails.StandardResUrl}">
                     </ffimageloading:CachedImage>
                 </Frame>
                 <Label  Text="{Binding Item.Duration}"  Style="{DynamicResource SubTitr}"  />
@@ -32,10 +33,7 @@
         <StackLayout  Orientation="Horizontal" HorizontalOptions="Center" >
             <Button  Margin="15"  Command="{Binding DownloadVideo}" Text="دانلود به همراه زیرنویس" />
         </StackLayout> 
-        <Label TextColor="Black" Margin="5" Text="{Binding Result}" 
-                                LineBreakMode="TailTruncation" 
-                                Style="{DynamicResource ListItemTextStyle}" 
-                                FontSize="16"  />
+        <Label   Text="{Binding Result}"  Style="{DynamicResource SubTitr}" />
         <ProgressBar  Progress="{Binding Progress}" Visual="Material"  ProgressColor="Green"/>
     </StackLayout>
 

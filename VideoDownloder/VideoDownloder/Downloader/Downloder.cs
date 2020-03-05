@@ -1,8 +1,8 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
+using VideoDownloder.Downloader;
 using YoutubeExplode;
 using YoutubeExplode.Models;
 using YoutubeExplode.Models.MediaStreams;
@@ -14,62 +14,59 @@ namespace Downloader
         YoutubeClient client;
 
         string path = $@"storage/emulated/0/utubDownloader";
+
+        public delegate void DownloadCounterHandler(object sender, int e, string message);
+        public event DownloadCounterHandler On_Download_Finish;
         public Utube()
         {
             client = new YoutubeClient();
         }
         public readonly Progress<double> Progress = new Progress<double>();
 
-        public async Task DownloadPlayList(string Url)
-        {
-            var id = YoutubeClient.ParsePlaylistId(Url);
-            var client = new YoutubeClient();
-            var PlayList = await client.GetPlaylistAsync(id);
 
+
+
+
+        public async Task DownloadPlayListAsync(Playlist PlayList)
+        {
+            int count = 0;
             path = Path.Combine(path, PlayList.Title.ValidNameForWindows());
             path.EnsureExsit();
             foreach (var video in PlayList.Videos)
             {
-                await DownloadVideoAsync(video, path);
-                await GenrateSubTitleAsync(video.Id, path, video.Title.ValidNameForWindows());
+
+                bool IsExsit = await CheckExsit(video.Title, path);
+                if (!IsExsit)
+                {
+                    await DownloadVideoAsync(video, path);
+                    await GenrateSubTitleAsync(video.Id, path, video.Title.ValidNameForWindows());
+                    count++;
+                    On_Download_Finish(this, count, "دانلود تکمیل شد");
+                }
+                else
+                {
+                    int cureent = count;
+                    count++;
+                    On_Download_Finish(this, -1, $" ویدیو  {cureent.ToPersianTextFirndly()} از قبل دانلود شده بود");
+                }
+
             }
 
+            On_Download_Finish(this, -1, $"پلی لیست کامل دانلود شد");
 
 
         }
 
-        public async Task DownloadPlayList(Video Video)
+        private async Task<bool> CheckExsit(string title, string path)
         {
-            var id = Video.GetVideoMixPlaylistId();
-            var client = new YoutubeClient();
-            var PlayList = await client.GetPlaylistAsync(id);
-
-            path = Path.Combine(path, PlayList.Title.ValidNameForWindows());
-            path.EnsureExsit();
-            foreach (var video in PlayList.Videos)
+            var IsGranted = await Helper.CheckPermissionReadAsync();
+            if (IsGranted)
             {
-                await DownloadVideoAsync(video, path);
-                await GenrateSubTitleAsync(video.Id, path, video.Title.ValidNameForWindows());
+                string[] files = Directory.GetFiles(path, $"{title}*");
+                return files.Length > 0;
             }
-
-
-
+            return IsGranted;
         }
-
-        public async Task DownloadPlayList(Playlist PlayList)
-        {
-            path = Path.Combine(path, PlayList.Title.ValidNameForWindows());
-            path.EnsureExsit();
-            foreach (var video in PlayList.Videos)
-            {
-                await DownloadVideoAsync(video, path);
-                await GenrateSubTitleAsync(video.Id, path, video.Title.ValidNameForWindows());
-            }
-
-
-
-        }
-
 
         public async Task DownloadVideoAsync(string url)
         {
@@ -145,30 +142,33 @@ namespace Downloader
                 string FullPath = Path.Combine(path, $"{Name}.srt");
 
                 var trackInfos = await client.GetVideoClosedCaptionTrackInfosAsync(id);
-
-                var trackInfo = trackInfos.First(t => t.Language.Code == "en");
-                var track = await client.GetClosedCaptionTrackAsync(trackInfo);
-                using StreamWriter file =
-                new StreamWriter(FullPath);
-                int line = 1;
-                foreach (var item in track.Captions)
+                if (trackInfos != null && trackInfos.Count() > 0)
                 {
-                    string from = $"{item.Offset.Hours.ToString("00")}:{item.Offset.Minutes.ToString("00")}:{item.Offset.Seconds.ToString("00")},{item.Offset.Milliseconds.ToString("000")}";
-                    TimeSpan ToSpaon = item.Offset.Add(item.Duration);
-                    string to = $"{ToSpaon.Hours.ToString("00")}:{ToSpaon.Minutes.ToString("00")}:{ToSpaon.Seconds.ToString("00")},{ToSpaon.Milliseconds.ToString("000")}";
+                    var trackInfo = trackInfos.First(t => t.Language.Code == "en");
+                    var track = await client.GetClosedCaptionTrackAsync(trackInfo);
+                    using StreamWriter file =
+                    new StreamWriter(FullPath);
+                    int line = 1;
+                    foreach (var item in track.Captions)
+                    {
+                        string from = $"{item.Offset.Hours.ToString("00")}:{item.Offset.Minutes.ToString("00")}:{item.Offset.Seconds.ToString("00")},{item.Offset.Milliseconds.ToString("000")}";
+                        TimeSpan ToSpaon = item.Offset.Add(item.Duration);
+                        string to = $"{ToSpaon.Hours.ToString("00")}:{ToSpaon.Minutes.ToString("00")}:{ToSpaon.Seconds.ToString("00")},{ToSpaon.Milliseconds.ToString("000")}";
 
-                    file.WriteLine(line);
-                    file.WriteLine($"{from} --> {to}");
-                    file.WriteLine(item.Text);
-                    file.WriteLine();
-                    line++;
+                        file.WriteLine(line);
+                        file.WriteLine($"{from} --> {to}");
+                        file.WriteLine(item.Text);
+                        file.WriteLine();
+                        line++;
+                    }
+                    return $"subtitle Write success to file : {FullPath}";
                 }
-                return $"subtitle Write success to file : {FullPath}";
+                return "subtitle Not Find";
             }
             catch (Exception ex)
             {
-
-                throw ex;
+                return "subtitle Not Find";
+                //throw ex;
             }
 
 

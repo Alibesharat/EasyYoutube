@@ -9,7 +9,6 @@
 
         public string Dectiption { get; set; }
 
-        public int Count { get; set; }
 
     }
 }
