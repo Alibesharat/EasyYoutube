@@ -5,7 +5,8 @@
        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
        mc:Ignorable="d"
        xmlns:local="clr-namespace:VideoDownloder.Views"
-       Title="VideoDownloder"
+       Title="ایزی تیوب"
+       BackgroundColor="DarkRed"
        x:Class="VideoDownloder.AppShell">
 
     <!-- 
