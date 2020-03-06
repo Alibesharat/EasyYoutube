@@ -1,4 +1,6 @@
-﻿using System;
+﻿using Microsoft.AppCenter.Analytics;
+using System;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 using Xamarin.Essentials;
 
@@ -21,8 +23,10 @@ namespace VideoDownloder.Downloader
             }
             catch (Exception ex)
             {
-                throw ex;
-                //Something went wrong
+                Analytics.TrackEvent("Write Permission got an Exception", new Dictionary<string, string> {
+                { "Eror", ex.Message},});
+                return false;
+
             }
         }
 
@@ -42,7 +46,9 @@ namespace VideoDownloder.Downloader
             }
             catch (Exception ex)
             {
-                throw ex;
+                Analytics.TrackEvent("Read Permission got an Exception", new Dictionary<string, string> {
+                { "Eror", ex.Message},});
+                return false;
                 //Something went wrong
             }
         }

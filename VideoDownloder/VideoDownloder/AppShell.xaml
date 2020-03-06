@@ -3,6 +3,7 @@
        xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
        xmlns:d="http://xamarin.com/schemas/2014/forms/design"
        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+       xmlns:tr="clr-namespace:VideoDownloder.Helpers"
        mc:Ignorable="d"
        xmlns:local="clr-namespace:VideoDownloder.Views"
        Title="ایزی تیوب"
@@ -32,14 +33,14 @@
 
     <!-- Your Pages -->
     <TabBar>
-        <Tab Title="خانه" Icon="home_icon.png">
+        <Tab Title="{tr:Translate Home}" Icon="home_icon.png">
             <ShellContent ContentTemplate="{DataTemplate local:HomePage}" />
         </Tab>
-        <Tab Title="پلی لیست" Icon="playlist_icon.png">
+        <Tab Title="{tr:Translate PlayList}" Icon="playlist_icon.png">
             <ShellContent ContentTemplate="{DataTemplate local:DownloadQuee}" />
         </Tab>
 
-        <Tab Title="دانلود مستقیم" Icon="Download_Icon.png">
+        <Tab Title="{tr:Translate DirectDownload}" Icon="Download_Icon.png">
             <ShellContent ContentTemplate="{DataTemplate local:DownloadPage}"/>
         </Tab>
     </TabBar>

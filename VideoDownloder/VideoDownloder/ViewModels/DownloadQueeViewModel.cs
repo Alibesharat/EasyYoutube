@@ -1,9 +1,9 @@
 ﻿using Downloader;
 using Mapster;
+using Microsoft.AppCenter.Analytics;
 using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using VideoDownloder.Models;
 using Xamarin.Forms;
@@ -153,7 +153,8 @@ namespace VideoDownloder.ViewModels
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
+                Analytics.TrackEvent("Search Video   got an Exception", new Dictionary<string, string> {
+                { "Eror", ex.Message},});
                 Visibily = false;
 
             }

@@ -1,8 +1,11 @@
-﻿using System;
+﻿using Microsoft.AppCenter.Analytics;
+using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
 using VideoDownloder.Downloader;
+using VideoDownloder.Helpers;
 using YoutubeExplode;
 using YoutubeExplode.Models;
 using YoutubeExplode.Models.MediaStreams;
@@ -14,7 +17,7 @@ namespace Downloader
         YoutubeClient client;
 
         string path = $@"storage/emulated/0/utubDownloader";
-
+        TranslateExtension translateExtension = new TranslateExtension();
         public delegate void DownloadCounterHandler(object sender, int e, string message);
         public event DownloadCounterHandler On_Download_Finish;
         public Utube()
@@ -52,18 +55,18 @@ namespace Downloader
                     await DownloadAsync(video, path);
                     await GenrateSubTitleAsync(video.Id, path, video.Title.ValidNameForWindows());
                     count++;
-                    On_Download_Finish(this, count, "دانلود تکمیل شد");
+                    On_Download_Finish(this, count, translateExtension.GetTranslate("DownLoadFinsihMessage"));
                 }
                 else
                 {
                     int cureent = count;
                     count++;
-                    On_Download_Finish(this, -1, $" ویدیو  {cureent.ToPersianTextFirndly()} از قبل دانلود شده بود");
+                    On_Download_Finish(this, -1, translateExtension.GetTranslate("TheVideoDownloadedBeforeMessage"));
                 }
 
             }
 
-            On_Download_Finish(this, -1, $"پلی لیست کامل دانلود شد");
+            On_Download_Finish(this, -1, translateExtension.GetTranslate("DoneMessage"));
 
 
         }
@@ -72,11 +75,11 @@ namespace Downloader
             if (!await CheckExsit(video.Title, path))
             {
                 await DownloadAsync(video);
-                On_Download_Finish(this, 1, "دانلود ویدیو انجام شد");
+                On_Download_Finish(this, 1, translateExtension.GetTranslate("DownLoadFinsihMessage"));
             }
             else
             {
-                On_Download_Finish(this, -1, "این ویدیو از قبل دانلود شده است");
+                On_Download_Finish(this, -1, translateExtension.GetTranslate("TheVideoDownloadedBeforeMessage"));
 
             }
 
@@ -109,7 +112,10 @@ namespace Downloader
             }
             catch (Exception ex)
             {
-
+                Analytics.TrackEvent("DownloadAsync got an Exception", new Dictionary<string, string> {
+    { "Eror", ex.Message},
+    { "VideoId", video.Id}
+});
                 throw ex;
             }
 
@@ -146,6 +152,10 @@ namespace Downloader
             }
             catch (Exception ex)
             {
+                Analytics.TrackEvent("Subtuile Genrate got an Exception", new Dictionary<string, string> {
+    { "Eror", ex.Message},
+    { "VideoId", id}
+});
                 return "subtitle Not Find";
                 //throw ex;
             }

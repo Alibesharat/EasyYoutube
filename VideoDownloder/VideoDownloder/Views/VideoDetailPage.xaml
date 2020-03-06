@@ -4,13 +4,20 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:tr="clr-namespace:VideoDownloder.Helpers"
              mc:Ignorable="d"
              x:Class="VideoDownloder.Views.VideoDetailPage"
              Title="{Binding Title}"
              Visual="Material"
-             
+             Shell.NavBarHasShadow="True"
+             Shell.TabBarTitleColor="Red"
+             Shell.TabBarIsVisible="True"
              BackgroundColor="GhostWhite"
-             FlowDirection="RightToLeft">
+             FlowDirection="RightToLeft" >
+    <Shell.BackButtonBehavior>
+        <BackButtonBehavior Command="{Binding BackCommand}"
+                            IconOverride="Home_Icon.png" />
+    </Shell.BackButtonBehavior>
 
     <StackLayout Padding="6" >
         <Frame >
@@ -31,7 +38,7 @@
 
         </Frame>
         <StackLayout  Orientation="Horizontal" HorizontalOptions="Center" >
-            <Button  Margin="15"  Command="{Binding DownloadVideo}" Text="دانلود به همراه زیرنویس" />
+            <Button  Margin="15"  Command="{Binding DownloadVideo}" Text="{tr:Translate DownloadWithCaption}" />
         </StackLayout>
         <ProgressBar HeightRequest="40"  Progress="{Binding Progress}" Visual="Material"  ProgressColor="Green"/>
         <Label Margin="0,-35,0,0" HorizontalTextAlignment="Center" TextColor="White" Text="{Binding Result}"   />

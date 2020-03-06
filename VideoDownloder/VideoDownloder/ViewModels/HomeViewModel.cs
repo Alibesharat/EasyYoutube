@@ -1,7 +1,5 @@
 ﻿using System;
 using System.Collections.ObjectModel;
-using System.Diagnostics;
-using System.Linq;
 using System.Threading.Tasks;
 using Xamarin.Forms;
 using YoutubeExplode.Models;
@@ -22,20 +20,12 @@ namespace VideoDownloder.ViewModels
         }
 
 
-        private string _Result;
-
-        public string Result
-        {
-            get { return _Result; }
-            set { SetProperty(ref _Result, value); }
-        }
-
+      
         public HomeViewModel()
         {
-            Title = "جست وجو";
+            Title = "Home";
             Items = new ObservableCollection<Video>();
             SearchVideoCommand = new Command(async () => await ExecuteSearchVideoCommand());
-
 
         }
 
@@ -47,7 +37,7 @@ namespace VideoDownloder.ViewModels
                 return;
 
             IsBusy = true;
-            Result = $"در حال جست وجو برای  {SearchQuery} : ";
+           
             try
             {
                 Items.Clear();
@@ -56,12 +46,10 @@ namespace VideoDownloder.ViewModels
                 {
                     Items.Add(item);
                 }
-                Result = $"نتایج جست و جو برای {SearchQuery} : {items.Count()} مورد";
             }
             catch (Exception ex)
             {
-                Debug.WriteLine(ex);
-                Result = $"خطا در دریافت اطلاعات";
+               
 
             }
             finally

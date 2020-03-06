@@ -14,8 +14,12 @@ namespace Downloader
             text = text.Replace("\\", "_");
             text = text.Replace("?", "_");
             text = text.Replace("*", "_");
+            text = text.Replace('"', '_');
 
             return text;
+
+
+           
         }
 
 

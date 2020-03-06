@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+              xmlns:tr="clr-namespace:VideoDownloder.Helpers"
              mc:Ignorable="d"
              Visual="Material"
              BackgroundColor="GhostWhite"
@@ -23,9 +24,9 @@
                 </StackLayout>
 
             </Frame>
-            <Button BackgroundColor="AntiqueWhite" TextColor="Gray" Command="{Binding SearchVideoCommand}" HorizontalOptions="Center" Text="Go" WidthRequest="80" HeightRequest="35"/>
+            <Button BackgroundColor="AntiqueWhite" TextColor="Gray" Command="{Binding SearchVideoCommand}" HorizontalOptions="Center" Text="{tr:Translate GoMessage}" WidthRequest="80" HeightRequest="35"/>
 
-            <Label IsVisible="False" Text="در کادر بالا ، لینک پلی لیست را وارد نمایید"  HorizontalOptions="CenterAndExpand">
+            <Label IsVisible="False" Text="{tr:Translate PlayListMessage}"  HorizontalOptions="CenterAndExpand">
                 <Label.Triggers>
                     <DataTrigger TargetType="Label"
                              Binding="{Binding Source={x:Reference ItemsListView}, Path=ItemsSource.Count}" 

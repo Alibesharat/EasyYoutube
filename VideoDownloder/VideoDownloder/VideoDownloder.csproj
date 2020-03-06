@@ -7,10 +7,13 @@
 
   <ItemGroup>
     <PackageReference Include="Mapster" Version="5.1.0" />
+    <PackageReference Include="Microsoft.AppCenter.Analytics" Version="3.0.0" />
+    <PackageReference Include="Microsoft.AppCenter.Crashes" Version="3.0.0" />
+    <PackageReference Include="Plugin.Multilingual" Version="1.1.6-beta" />
     <PackageReference Include="Xamarin.FFImageLoading" Version="2.4.11.982" />
     <PackageReference Include="Xamarin.FFImageLoading.Forms" Version="2.4.11.982" />
-    <PackageReference Include="Xamarin.Forms" Version="4.5.0.356" />  
-    <PackageReference Include="Xamarin.Essentials" Version="1.5.0" />  
+    <PackageReference Include="Xamarin.Forms" Version="4.6.0.379-pre1" />  
+    <PackageReference Include="Xamarin.Essentials" Version="1.5.1" />  
     <PackageReference Include="YoutubeExplode" Version="4.7.13" />
   </ItemGroup>
 
@@ -24,15 +27,16 @@
   </ItemGroup>
 
   <ItemGroup>
+    <Compile Update="Helpers\TranslateExtension.Designer.cs">
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+      <DependentUpon>TranslateExtension.cs</DependentUpon>
+    </Compile>
     <Compile Update="Views\HomePage.xaml.cs">
       <DependentUpon>HomePage.xaml</DependentUpon>
     </Compile>
     <Compile Update="Views\VideoDetailPage.xaml.cs">
       <DependentUpon>VideoDetailPage.xaml</DependentUpon>
     </Compile>
-  </ItemGroup>
-
-  <ItemGroup>
-    <Folder Include="Elements\" />
   </ItemGroup>
 </Project>

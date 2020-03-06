@@ -10977,10 +10977,7 @@ namespace VideoDownloder.Droid
 			public const int tooltip_frame_light = 2131165307;
 			
 			// aapt resource value: 0x7F07007C
-			public const int unnamed = 2131165308;
-			
-			// aapt resource value: 0x7F07007D
-			public const int xamarin_logo = 2131165309;
+			public const int xamarin_logo = 2131165308;
 			
 			static Drawable()
 			{
@@ -11948,16 +11945,25 @@ namespace VideoDownloder.Droid
 		{
 			
 			// aapt resource value: 0x7F0C0000
-			public const int icon = 2131492864;
+			public const int Download_Icon = 2131492864;
 			
 			// aapt resource value: 0x7F0C0001
-			public const int icon_round = 2131492865;
+			public const int home_icon = 2131492865;
 			
 			// aapt resource value: 0x7F0C0002
-			public const int launcher_foreground = 2131492866;
+			public const int icon = 2131492866;
 			
 			// aapt resource value: 0x7F0C0003
-			public const int logo = 2131492867;
+			public const int icon_round = 2131492867;
+			
+			// aapt resource value: 0x7F0C0004
+			public const int launcher_foreground = 2131492868;
+			
+			// aapt resource value: 0x7F0C0005
+			public const int logo = 2131492869;
+			
+			// aapt resource value: 0x7F0C0006
+			public const int playlist_icon = 2131492870;
 			
 			static Mipmap()
 			{

@@ -1,8 +1,10 @@
-﻿using System;
-using Xamarin.Forms;
-using Xamarin.Forms.Xaml;
+﻿using Plugin.Multilingual;
+using System.Globalization;
 using VideoDownloder.Services;
-using VideoDownloder.Views;
+using Xamarin.Forms;
+using Microsoft.AppCenter;
+using Microsoft.AppCenter.Analytics;
+using Microsoft.AppCenter.Crashes;
 
 namespace VideoDownloder
 {
@@ -13,12 +15,15 @@ namespace VideoDownloder
         {
             InitializeComponent();
 
+            CultureInfo.DefaultThreadCurrentCulture = CrossMultilingual.Current.DeviceCultureInfo;
             DependencyService.Register<MockDataStore>();
             MainPage = new AppShell();
         }
 
         protected override void OnStart()
         {
+            AppCenter.Start("android=015f5fdd-9033-487a-8043-6e34bed6e9b2;",
+                  typeof(Analytics), typeof(Crashes));
         }
 
         protected override void OnSleep()

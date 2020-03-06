@@ -1,7 +1,12 @@
 ﻿using Downloader;
+using Plugin.Multilingual;
 using System;
+using System.Net.Http.Headers;
+using System.Reflection;
+using System.Resources;
 using System.Threading.Tasks;
 using VideoDownloder.Downloader;
+using VideoDownloder.Helpers;
 using Xamarin.Forms;
 using YoutubeExplode.Models;
 
@@ -10,6 +15,7 @@ namespace VideoDownloder.ViewModels
     public class VideoDetailViewModel : BaseViewModel
     {
         Utube tube;
+        TranslateExtension translateExtension;
         public Video Item { get; set; }
         public Command DownloadVideo { get; set; }
 
@@ -48,11 +54,14 @@ namespace VideoDownloder.ViewModels
             Item = item;
             DownloadVideo = new Command(async () => await ExecuteDownloadVideo());
             tube = new Utube();
+            translateExtension = new TranslateExtension();
         }
 
         private async Task ExecuteDownloadVideo()
         {
-            Result = "در حال آماده سازی برای دانلود ...";
+          
+            Result = translateExtension.GetTranslate("PreparingForDownloadMessage");
+          
             var status = await Helper.CheckPermissionWriteAsync();
             if (status)
             {
@@ -65,7 +74,7 @@ namespace VideoDownloder.ViewModels
             else
             {
 
-                Result = "Premisson not granted";
+                Result = translateExtension.GetTranslate("PremissinDenidMessage");
             }
 
         }
@@ -73,7 +82,7 @@ namespace VideoDownloder.ViewModels
         private void Tube_On_Download_Finish(object sender, int e, string message)
         {
             Message = message;
-            Result = "اتمام عملیات";
+            Result = translateExtension.GetTranslate("DoneMessage");
         }
 
         private void Progress_ProgressChanged(object sender, double e)

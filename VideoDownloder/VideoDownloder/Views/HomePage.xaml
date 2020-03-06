@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:tr="clr-namespace:VideoDownloder.Helpers"
              mc:Ignorable="d"
              x:Class="VideoDownloder.Views.HomePage"
              x:Name="BrowseItemsPage"
@@ -29,7 +30,7 @@
             </StackLayout>
 
         </Frame>
-        <Label IsVisible="False" Text="در کادر بالا ، متن جست و جو را وارد کنید"  HorizontalOptions="CenterAndExpand">
+        <Label IsVisible="False" Text="{tr:Translate HomeMessage}"  HorizontalOptions="CenterAndExpand">
             <Label.Triggers>
                 <DataTrigger TargetType="Label"
                              Binding="{Binding Source={x:Reference ItemsListView}, Path=ItemsSource.Count}" 

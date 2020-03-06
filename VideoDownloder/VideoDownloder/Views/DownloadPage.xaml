@@ -4,6 +4,7 @@
              xmlns:d="http://xamarin.com/schemas/2014/forms/design"
              xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
              xmlns:ffimageloading="clr-namespace:FFImageLoading.Forms;assembly=FFImageLoading.Forms"
+             xmlns:tr="clr-namespace:VideoDownloder.Helpers"
              mc:Ignorable="d"
              Visual="Material"
              BackgroundColor="GhostWhite"
@@ -22,7 +23,7 @@
                 </StackLayout>
 
             </Frame>
-            <Label  Text="در کادر بالا ، لینک ویدیو  را وارد نمایید"  HorizontalOptions="CenterAndExpand"/>
+            <Label  Text="{tr:Translate DirectDownloadMessage}"  HorizontalOptions="CenterAndExpand"/>
             <StackLayout Padding="6" >
                 <Frame Style="{DynamicResource Item}">
                     <StackLayout>
