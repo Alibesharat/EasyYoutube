@@ -1,0 +1,40 @@
+{
+  "project_info": {
+    "project_number": "99916015290",
+    "firebase_url": "https://easytube-e3c4c.firebaseio.com",
+    "project_id": "easytube-e3c4c",
+    "storage_bucket": "easytube-e3c4c.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:99916015290:android:8d4938e2bc7d4b02e08483",
+        "android_client_info": {
+          "package_name": "ir.dornasystem.easytube"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "99916015290-jv0o4o2k5rtu61lfi1402vlmum2bsv7t.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyC8iOlh4Yg3Ay-6rW0ZjqrzRztoAJG48dA"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "99916015290-jv0o4o2k5rtu61lfi1402vlmum2bsv7t.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

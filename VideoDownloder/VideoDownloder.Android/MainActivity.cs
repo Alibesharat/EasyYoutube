@@ -23,8 +23,8 @@ namespace VideoDownloder.Droid
             LoadApplication(new App());
         }
 
-
        
+
 
     }
 }
