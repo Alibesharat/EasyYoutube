@@ -47,6 +47,11 @@
     <AndroidManagedSymbols>true</AndroidManagedSymbols>
     <AndroidUseSharedRuntime>false</AndroidUseSharedRuntime>
     <AndroidPackageFormat>aab</AndroidPackageFormat>
+    <AotAssemblies>true</AotAssemblies>
+    <EnableLLVM>true</EnableLLVM>
+    <AndroidEnableProfiledAot>true</AndroidEnableProfiledAot>
+    <BundleAssemblies>false</BundleAssemblies>
+    <AndroidExplicitCrunch>true</AndroidExplicitCrunch>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="Mono.Android" />
